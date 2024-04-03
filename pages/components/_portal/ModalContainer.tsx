@@ -1,6 +1,6 @@
-import {isModalState} from "@/utils/atom";
 import {useRecoilValue} from "recoil";
 import styled from "styled-components";
+import {isModalState} from "../../../utils/atom";
 import ModalPortal from "../_portal/ModalPortal";
 
 function ModalContainer() {

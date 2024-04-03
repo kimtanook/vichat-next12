@@ -64,7 +64,7 @@ function Chat({
         {chatList.map((item: string, index: number) => (
           <div key={index}>
             {dataUrlRegex.test(item) ? (
-              <img src={item} alt="channel-image" />
+              <Image src={item} alt="channel-image" />
             ) : (
               <div key={index}>{item}</div>
             )}
@@ -82,12 +82,7 @@ function Chat({
             onChange={handleImageChange}
             hidden
           />
-          <Image
-            width={24}
-            height={24}
-            src={imageUploadIcon}
-            alt="image-upload-ocon"
-          />
+          <Image src={imageUploadIcon} alt="image-upload-ocon" />
         </label>
       </SubmitWrap>
     </ChatWrap>
@@ -115,20 +110,4 @@ const SubmitWrap = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0 0.2rem;
-`;
-const input = styled.input`
-  border: 0.1rem solid #dadada;
-  border-radius: 0.3rem;
-`;
-
-const Label = styled.label`
-  display: flex;
-  cursor: pointer;
-`;
-const FileInput = styled.input`
-  width: 100%;
-`;
-
-const Img = styled.img`
-  width: 100%;
 `;

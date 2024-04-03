@@ -1,6 +1,6 @@
-import {isModalState} from "@/utils/atom";
 import {useRecoilState} from "recoil";
 import styled from "styled-components";
+import {isModalState} from "../../../utils/atom";
 
 function LoadingModal() {
   const [_, setModal] = useRecoilState(isModalState);

@@ -106,7 +106,7 @@ function Video({socket, myPeerConnection, myMediaRef, otherMediaRef}: any) {
 
   const handleIce = (event: RTCPeerConnectionIceEvent) => {
     if (event.candidate) {
-      socket.emit("ice", event.candidate, router.query.id);
+      socket.emit("ice", event.candidate, "test");
     }
   };
 

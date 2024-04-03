@@ -1,10 +1,10 @@
 "use client";
 
-import {useAddRoom} from "@/api/broadcast/room";
-import {roomsState, userInfoState} from "@/utils/atom";
-import {useRouter} from "next/navigation";
+import {useRouter} from "next/router";
 import {MouseEvent} from "react";
 import {useRecoilState, useRecoilValue} from "recoil";
+import {useAddRoom} from "../../../utils/api";
+import {roomsState, userInfoState} from "../../../utils/atom";
 
 function CreateMedia() {
   const router = useRouter();

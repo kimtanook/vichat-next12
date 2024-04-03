@@ -1,6 +1,6 @@
 import {useRouter} from "next/router";
 import {useEffect, useRef, useState} from "react";
-import io from "socket.io-client";
+import {connect} from "socket.io-client";
 import styled from "styled-components";
 import Chat from "./Chat";
 import Video from "./Video";
@@ -9,8 +9,9 @@ import VideoDownload from "./VideoDownload";
 function MediaWrap() {
   const router = useRouter();
 
-  const [socket, setSocket] = useState<any>(null);
-  const roomName = router.query.id;
+  const socket = connect("localhost:3000");
+
+  const roomName = "test";
 
   const myPeerConnection = useRef<RTCPeerConnection | null>(null);
   const myDataChannel = useRef<RTCDataChannel | null>(null);
@@ -23,13 +24,8 @@ function MediaWrap() {
 
   // socket 코드 START
   useEffect(() => {
-    fetch("/api/socket");
-    setSocket(io());
-
-    const socketIo = io();
-
     // peer A
-    socketIo.on("welcome", async () => {
+    socket.on("welcome", async () => {
       // data channel code: data channel을 생성
       myDataChannel.current =
         myPeerConnection.current?.createDataChannel("chat")!;
@@ -42,11 +38,11 @@ function MediaWrap() {
       const offer = await myPeerConnection.current?.createOffer();
       myPeerConnection.current?.setLocalDescription(offer);
       console.log("sent the offer");
-      socketIo.emit("offer", offer, roomName);
+      socket.emit("offer", offer, roomName);
     });
 
     // pear B
-    socketIo.on("offer", async (offer) => {
+    socket.on("offer", async (offer) => {
       // data channel code
       myPeerConnection.current?.addEventListener("datachannel", (event) => {
         myDataChannel.current = event.channel;
@@ -60,15 +56,15 @@ function MediaWrap() {
       myPeerConnection.current?.setRemoteDescription(offer);
       const answer = await myPeerConnection.current?.createAnswer();
       myPeerConnection.current?.setLocalDescription(answer);
-      socketIo.emit("answer", answer, roomName);
+      socket.emit("answer", answer, roomName);
     });
 
-    socketIo.on("answer", (answer) => {
+    socket.on("answer", (answer) => {
       console.log("received the answer");
       myPeerConnection.current?.setRemoteDescription(answer);
     });
 
-    socketIo.on("ice", (ice) => {
+    socket.on("ice", (ice) => {
       try {
         console.log("receive the ice");
         myPeerConnection.current?.addIceCandidate(ice);
@@ -78,10 +74,10 @@ function MediaWrap() {
       }
     });
     return () => {
-      socketIo.off("welcome");
-      socketIo.off("offer");
-      socketIo.off("answer");
-      socketIo.off("ice");
+      socket.off("welcome");
+      socket.off("offer");
+      socket.off("answer");
+      socket.off("ice");
     };
   }, []);
   // socket 코드 END
