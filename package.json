@@ -1,5 +1,6 @@
 {
   "name": "vichat",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,13 +9,29 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.1.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "@types/express": "^4.17.21",
+    "@types/uuid": "^9.0.8",
+    "babel-plugin-styled-components": "^2.1.4",
+    "express": "^4.19.2",
+    "firebase": "^9.17.1",
+    "next": "^12.3.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-query": "^3.39.3",
+    "socket.io": "^4.6.0",
+    "socket.io-client": "^4.6.0",
+    "styled-components": "^5.3.6",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "20.12.2",
-    "@types/react": "18.2.73",
+    "@types/react": "^17.0.21",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-query": "^1.2.9",
+    "@types/recoil": "^0.0.9",
+    "@types/socket.io": "^3.0.2",
+    "@types/socket.io-client": "^3.0.0",
+    "@types/styled-components": "^5.1.26",
     "eslint": "8.57.0",
     "eslint-config-next": "14.1.4",
     "typescript": "5.4.3"
