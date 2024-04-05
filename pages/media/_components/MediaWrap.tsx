@@ -9,7 +9,9 @@ import VideoDownload from "./VideoDownload";
 function MediaWrap() {
   const router = useRouter();
 
-  const socket = connect("localhost:3000");
+  const socket = connect({
+    path: "/api/socket",
+  });
 
   const roomName = "test";
 
