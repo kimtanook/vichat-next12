@@ -61,7 +61,7 @@ function Chat({
   return (
     <ChatWrap>
       <ChatList>
-        {chatList.map((item: string, index: number) => (
+        {chatList?.map((item: string, index: number) => (
           <div key={index}>
             {dataUrlRegex.test(item) ? (
               <Image src={item} alt="channel-image" />
