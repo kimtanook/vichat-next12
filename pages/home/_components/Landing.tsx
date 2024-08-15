@@ -20,6 +20,7 @@ function Landing() {
 
   return (
     <div>
+      home
       {rooms?.map((item: any) => (
         <div key={uuidv4()}>
           <button value={item.roomName} onClick={onRouter}>
