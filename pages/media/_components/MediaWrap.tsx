@@ -13,7 +13,7 @@ function MediaWrap() {
     path: "/api/socket",
   });
 
-  const roomName = "test";
+  const roomName = router.query.id;
 
   const myPeerConnection = useRef<RTCPeerConnection | null>(null);
   const myDataChannel = useRef<RTCDataChannel | null>(null);
@@ -69,10 +69,18 @@ function MediaWrap() {
     socket.on("ice", (ice) => {
       try {
         console.log("receive the ice");
-        myPeerConnection.current?.addIceCandidate(ice);
+        if (myPeerConnection.current) {
+          myPeerConnection.current?.addIceCandidate(ice);
+        } else {
+          alert("error");
+        }
       } catch (error) {
         console.log("error : ", error);
-        myPeerConnection.current?.restartIce();
+        if (myPeerConnection.current) {
+          myPeerConnection.current?.restartIce();
+        } else {
+          alert("error");
+        }
       }
     });
     return () => {
