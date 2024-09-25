@@ -146,13 +146,13 @@ function Video({socket, myPeerConnection, myMediaRef, otherMediaRef}: any) {
   return (
     <Wrap>
       <VideoWrap>
-        <video ref={myMediaRef} autoPlay playsInline />
-        <video ref={otherMediaRef} autoPlay playsInline />
+        <MyVideo ref={myMediaRef} autoPlay playsInline />
+        <OtherVideo ref={otherMediaRef} autoPlay playsInline />
       </VideoWrap>
       <div>
         <button onClick={muteAudio}>{onMute ? "Unmute" : "Mute"}</button>
         <button onClick={playVideo}>
-          {onVideo ? "Stop Video" : "Start Video"}
+          {onVideo ? "Start Video" : "Stop Video"}
         </button>
       </div>
       <select onChange={changeCamera}>
@@ -172,7 +172,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid red;
-  flex: 1;
+  width: 100%;
 `;
 const VideoWrap = styled.div`
   display: flex;
@@ -181,11 +181,13 @@ const VideoWrap = styled.div`
   gap: 1rem;
 `;
 
-const MyVideo = styled.video`
+const MyVideo = styled.video<{ref: any; autoPlay: any; playsInline: any}>`
   border: 1px solid red;
   width: 100%;
+  height: 50vw;
 `;
-const OtherVideo = styled.video`
+const OtherVideo = styled.video<{ref: any; autoPlay: any; playsInline: any}>`
   border: 1px solid blue;
   width: 100%;
+  height: 50vw;
 `;

@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image";
-import {FormEvent, useEffect, useState} from "react";
+import {FormEvent, useEffect, useRef, useState} from "react";
 import {useRecoilValue} from "recoil";
 import styled from "styled-components";
 import imageUploadIcon from "../../../public/image/image-upload.svg";
@@ -13,8 +15,8 @@ function Chat({
   setMessage,
 }: any) {
   const userInfo = useRecoilValue(userInfoState);
-
-  const [image, setImage] = useState();
+  const [image, setImage] = useState<File | undefined>(undefined);
+  const chatListRef = useRef<any>();
 
   // 메세지 보내기
   const onSubmitChat = (e: FormEvent) => {
@@ -58,23 +60,33 @@ function Chat({
     sendImageOnExistingChannel();
   }, [image]);
 
+  useEffect(() => {
+    if (chatListRef.current) {
+      chatListRef.current.scrollTop = chatListRef.current.scrollHeight;
+    }
+  }, [chatList]);
+
   return (
     <ChatWrap>
-      <ChatList>
+      <ChatList ref={chatListRef}>
         {chatList?.map((item: string, index: number) => (
-          <div key={index}>
+          <li key={index}>
             {dataUrlRegex.test(item) ? (
-              <Image src={item} alt="channel-image" />
+              <Image src={item} alt="channel-image" width={100} height={100} />
             ) : (
               <div key={index}>{item}</div>
             )}
-          </div>
+          </li>
         ))}
       </ChatList>
+
       <SubmitWrap>
-        <form onSubmit={onSubmitChat}>
-          <input value={message} onChange={(e) => setMessage(e.target.value)} />
-        </form>
+        <Form onSubmit={onSubmitChat}>
+          <MsgInput
+            value={message}
+            onChange={(e: any) => setMessage(e.target.value)}
+          />
+        </Form>
         <label htmlFor="fileInput">
           <input
             id="fileInput"
@@ -82,7 +94,14 @@ function Chat({
             onChange={handleImageChange}
             hidden
           />
-          <Image src={imageUploadIcon} alt="image-upload-ocon" />
+          <ImgBox>
+            <Image
+              src={imageUploadIcon}
+              alt="image-upload-icon"
+              width={24}
+              height={24}
+            />
+          </ImgBox>
         </label>
       </SubmitWrap>
     </ChatWrap>
@@ -98,10 +117,11 @@ const ChatWrap = styled.div`
   flex: 1;
 `;
 
-const ChatList = styled.div`
-  height: 100%;
+const ChatList = styled.ul<{ref: any; children: any}>`
+  height: 10rem;
   padding: 0.5rem;
   border: 1px solid red;
+  overflow-y: scroll;
 `;
 
 const SubmitWrap = styled.div`
@@ -109,5 +129,22 @@ const SubmitWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0 0.2rem;
+`;
+
+const Form = styled.form<{children: any; onSubmit: any}>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+`;
+
+const MsgInput = styled.input<{value: string; onChange: any}>`
+  width: 100%;
+`;
+
+const ImgBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 `;

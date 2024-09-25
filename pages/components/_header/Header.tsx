@@ -54,6 +54,7 @@ const Wrap = styled.section`
 
 const LogoBox = styled.div`
   position: relative;
+  display: flex;
   height: 100%;
   width: calc(var(--header-height) - 1rem);
 `;

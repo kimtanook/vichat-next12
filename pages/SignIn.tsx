@@ -5,12 +5,10 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import Image from "next/image";
 import {useRouter} from "next/router";
 import {FormEvent, useState} from "react";
 import {useRecoilValue} from "recoil";
 import styled from "styled-components";
-import logo from "../public/logo.svg";
 import {userInfoState} from "../utils/atom";
 import {authService} from "../utils/firebase";
 
@@ -52,9 +50,9 @@ function SignIn() {
 
   return (
     <Wrap>
-      <ImageBox>
+      {/* <ImageBox>
         <Image src={logo} alt="logo" />
-      </ImageBox>
+      </ImageBox> */}
       <Box>
         <form onSubmit={onSubmitAuth}>
           <InputBox>
@@ -159,10 +157,10 @@ const InputBox = styled.div`
 `;
 const ButtonBox = styled.div`
   display: flex;
-  gap: 1rem;
-  display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
   /* border: 1px solid green; */
   & button {
     width: 100%;

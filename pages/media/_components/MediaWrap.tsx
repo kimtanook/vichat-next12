@@ -101,7 +101,7 @@ function MediaWrap() {
   return (
     <Wrap>
       <div>{roomName}</div>
-      <button onClick={peerConnection}>확인</button>
+      {/* <button onClick={peerConnection}>확인</button> */}
       <MediaBox>
         <Video
           socket={socket}
@@ -129,11 +129,10 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
 `;
 
 const MediaBox = styled.div`
   display: flex;
-  flex-direction: row;
-  padding: 1rem;
+  flex-direction: column;
+  width: 100%;
 `;
